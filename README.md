@@ -1,3 +1,11 @@
-# Sala del Universo – MIM (multipágina)
-Sitio responsive (HTML5, CSS3, JS) con 3 páginas: `index.html`, `galaxias.html`, `recursos.html`.
-Incluye texto, imágenes (SVG), animaciones (CSS), interactividad (canvas, quiz) y soporte móvil.
+# 🌌 Sala del Universo – MIM
+
+Trabajo para UNIACC – Sala del Universo (MIM). Esta pagina web esta creada por Jonathan Silva para el asignatura de Taller de Herramientas Multimedia**.
+
+Incluye:
+- 🌠 **Mapa estelar interactivo** (Canvas)
+- 🪐 **Cálculo de peso en distintos planetas**
+- 🧠 **Mini-quiz educativo**
+- 🖼️ **Galería de imágenes**
+- 🎬 **Video educativo (HTML5)**
+- 📱 Diseño responsive adaptable a escritorio, tablet y móvil.
