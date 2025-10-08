@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sala del Universo – Inicio</title>
+<link rel="stylesheet" href="css/style.css"/></head><body>
+<header><div class="container"><nav><strong>Sala del Universo</strong>
+<div class="links"><a href="index.html">Inicio</a><a href="galaxias.html">Galaxias & Estrellas</a><a href="recursos.html">Recursos</a></div>
+</nav></div></header>
+<main class="container">
+<h1>Explora el cosmos</h1>
+<div class="card"><p>Este sitio usa <strong>texto, imágenes, animaciones e interactividad</strong> en un diseño responsive.</p></div>
+<section class="card"><h2>Mapa estelar</h2><canvas id="sky"></canvas></section>
+<section class="card"><h2>Tu peso en otros planetas</h2>
+<div class="flex"><label>Peso Tierra (kg) <input id="pesoTierra" class="input" type="number" min="1" value="70"/></label>
+<label>Planeta
+<select id="planeta" class="input"><option value="mercurio">Mercurio</option><option value="venus">Venus</option><option value="luna">Luna</option><option value="marte">Marte</option><option value="jupiter">Júpiter</option><option value="saturno">Saturno</option><option value="urano">Urano</option><option value="neptuno">Neptuno</option></select></label>
+<button id="calc">Calcular</button></div><p id="resultado"></p></section>
+<section class="card"><h2>Mini‑quiz</h2><form id="quizForm">
+<p>1) Evidencia de expansión: <label><input type="radio" name="q1" value="a">Corrimiento al rojo</label> <label><input type="radio" name="q1" value="b">Fases</label></p>
+<p>2) Ciclo de vida estelar: <label><input type="radio" name="q2" value="a">Temp.</label> <label><input type="radio" name="q2" value="b">Masa</label></p>
+<p>3) 70kg en Luna ≈ <label><input type="radio" name="q3" value="a">11.5</label> <label><input type="radio" name="q3" value="b">65</label></p>
+<p>4) Vía Láctea: <label><input type="radio" name="q4" value="a">Elíptica</label> <label><input type="radio" name="q4" value="b">Espiral barrada</label></p>
+<p>5) Agujero negro se detecta por <label><input type="radio" name="q5" value="a">Brillo</label> <label><input type="radio" name="q5" value="b">Efectos gravitacionales</label></p>
+<button type="submit">Ver puntaje</button><p id="score"></p></form></section>
+<section class="card"><h2>Animación CSS</h2><div class="planet" aria-label="Planeta animado"></div></section>
+</main>
+<footer><div class="container"><small>Trabajo individual – UNIACC. Sin plantillas.</small></div></footer>
+<script src="js/script.js"></script></body></html>
