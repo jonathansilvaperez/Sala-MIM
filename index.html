@@ -27,11 +27,14 @@
     <p>Descubre cómo funciona el cosmos a través de experiencias interactivas. Aprende sobre galaxias, estrellas y planetas mientras juegas, experimentas y observas cómo la ciencia cobra vida en el MIM.</p>
   </div>
 
-  <section class="card">
+  <!-- 🔭 Mapa estelar interactivo -->
+  <section class="card" id="sky">
     <h2>Mapa estelar</h2>
-    <canvas id="sky"></canvas>
+    <p class="muted">Haz clic sobre las estrellas brillantes para ver sus datos.</p>
+    <!-- El canvas se inyecta automáticamente por js/script.js -->
   </section>
 
+  <!-- ⚖️ Peso en otros planetas -->
   <section class="card">
     <h2>Tu peso en otros planetas</h2>
     <div class="flex">
@@ -55,6 +58,7 @@
     <p id="resultado"></p>
   </section>
 
+  <!-- 🧠 Mini quiz educativo -->
   <section class="card">
     <h2>Mini-quiz</h2>
     <form id="quizForm">
@@ -63,18 +67,18 @@
         <label><input type="radio" name="q1" value="b">Fases</label>
       </p>
       <p>2) Ciclo de vida estelar:
-        <label><input type="radio" name="q2" value="a">Temp.</label>
+        <label><input type="radio" name="q2" value="a">Temperatura</label>
         <label><input type="radio" name="q2" value="b">Masa</label>
       </p>
-      <p>3) 70kg en Luna ≈
+      <p>3) 70kg en la Luna ≈
         <label><input type="radio" name="q3" value="a">11.5</label>
         <label><input type="radio" name="q3" value="b">65</label>
       </p>
-      <p>4) Vía Láctea:
+      <p>4) La Vía Láctea es:
         <label><input type="radio" name="q4" value="a">Elíptica</label>
         <label><input type="radio" name="q4" value="b">Espiral barrada</label>
       </p>
-      <p>5) Agujero negro se detecta por
+      <p>5) Un agujero negro se detecta por:
         <label><input type="radio" name="q5" value="a">Brillo</label>
         <label><input type="radio" name="q5" value="b">Efectos gravitacionales</label>
       </p>
@@ -83,7 +87,7 @@
     </form>
   </section>
 
-  <!-- 🔵 Sección actualizada de animación CSS -->
+  <!-- 🌍 Animación CSS -->
   <section class="card">
     <h2>Animación CSS</h2>
     <p>Esta animación simula un planeta flotando en el espacio. El movimiento continuo hacia arriba y abajo representa la sensación de ingravidez y el equilibrio de los cuerpos celestes en el cosmos.</p>
@@ -93,9 +97,12 @@
 
 <footer>
   <div class="container">
-    <small>Trabajo Realizado por Jonathan Silva para la carrera de Ingeniería en Informática Multimedia – UNIACC.</small>
+    <small>Trabajo realizado por Jonathan Silva para la carrera de Ingeniería en Informática Multimedia – UNIACC.</small>
   </div>
 </footer>
+
+<!-- Contenedor de notificaciones -->
+<div id="toast" aria-live="polite" aria-atomic="true"></div>
 
 <script src="js/script.js"></script>
 </body>
