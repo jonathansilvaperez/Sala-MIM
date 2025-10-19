@@ -1,32 +1,38 @@
-<!DOCTYPE html><html lang="es"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Sala del Universo – Inicio</title>
-<link rel="stylesheet" href="css/style.css"/></head><body>
-<header><div class="container"><nav><strong>Sala del Universo</strong>
-<div class="links"><a href="index.html">Inicio</a><a href="galaxias.html">Galaxias & Estrellas</a><a href="recursos.html">Recursos</a></div>
+<link href="css/style.css" rel="stylesheet"/><meta content="Explora la Sala del Universo del MIM: mapa estelar, peso en otros planetas, miniquiz y más recursos interactivos para aprender ciencia jugando." name="description"/><meta content="Sala del Universo – Inicio" property="og:title"/><meta content="Explora la Sala del Universo del MIM: mapa estelar, peso en otros planetas, miniquiz y más recursos interactivos para aprender ciencia jugando." property="og:description"/><meta content="summary_large_image" name="twitter:card"/><link href="css/a11y.css" rel="stylesheet"/></head><body>
+<div aria-label="Accesibilidad" class="a11y-toolbar" id="a11y-toolbar" role="region">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<button aria-pressed="false" id="btn-contrast" type="button">Alto contraste</button>
+<div aria-label="Tamaño de fuente" class="font-controls" role="group">
+<button aria-label="Reducir fuente" id="font-dec" type="button">A-</button>
+<span id="font-val">100%</span>
+<button aria-label="Aumentar fuente" id="font-inc" type="button">A+</button>
+</div>
+</div>
+
+<header><div class="container"><nav aria-label="Navegación principal" role="navigation"><strong>Sala del Universo</strong>
+<div class="links"><a href="index.html">Inicio</a><a href="galaxias.html">Galaxias &amp; Estrellas</a><a href="recursos.html">Recursos</a></div>
 </nav></div></header>
-<main class="container">
+<main class="container" id="contenido" role="main">
 <h1>Explora el cosmos</h1>
-<div class="card"><p>Bienvenido al sitio interactivo <strong>donde podras jugar y aprender</strong> sobre el sistema solar.</p></div>
+<div class="card"><p>Este sitio usa <strong>texto, imágenes, animaciones e interactividad</strong> en un diseño responsive.</p></div>
 <section class="card"><h2>Mapa estelar</h2><canvas id="sky"></canvas></section>
 <section class="card"><h2>Tu peso en otros planetas</h2>
-<div class="flex"><label>Peso Tierra (kg) <input id="pesoTierra" class="input" type="number" min="1" value="70"/></label>
+<div class="flex"><label>Peso Tierra (kg) <input class="input" id="pesoTierra" min="1" type="number" value="70"/></label>
 <label>Planeta
-<select id="planeta" class="input"><option value="mercurio">Mercurio</option><option value="venus">Venus</option><option value="luna">Luna</option><option value="marte">Marte</option><option value="jupiter">Júpiter</option><option value="saturno">Saturno</option><option value="urano">Urano</option><option value="neptuno">Neptuno</option></select></label>
+<select class="input" id="planeta"><option value="mercurio">Mercurio</option><option value="venus">Venus</option><option value="luna">Luna</option><option value="marte">Marte</option><option value="jupiter">Júpiter</option><option value="saturno">Saturno</option><option value="urano">Urano</option><option value="neptuno">Neptuno</option></select></label>
 <button id="calc">Calcular</button></div><p id="resultado"></p></section>
 <section class="card"><h2>Mini‑quiz</h2><form id="quizForm">
-<p>1) Evidencia de expansión: <label><input type="radio" name="q1" value="a">Corrimiento al rojo</label> <label><input type="radio" name="q1" value="b">Fases</label></p>
-<p>2) Ciclo de vida estelar: <label><input type="radio" name="q2" value="a">Temp.</label> <label><input type="radio" name="q2" value="b">Masa</label></p>
-<p>3) 70kg en Luna ≈ <label><input type="radio" name="q3" value="a">11.5</label> <label><input type="radio" name="q3" value="b">65</label></p>
-<p>4) Vía Láctea: <label><input type="radio" name="q4" value="a">Elíptica</label> <label><input type="radio" name="q4" value="b">Espiral barrada</label></p>
-<p>5) Agujero negro se detecta por <label><input type="radio" name="q5" value="a">Brillo</label> <label><input type="radio" name="q5" value="b">Efectos gravitacionales</label></p>
+<p>1) Evidencia de expansión: <label><input name="q1" type="radio" value="a"/>Corrimiento al rojo</label> <label><input name="q1" type="radio" value="b"/>Fases</label></p>
+<p>2) Ciclo de vida estelar: <label><input name="q2" type="radio" value="a"/>Temp.</label> <label><input name="q2" type="radio" value="b"/>Masa</label></p>
+<p>3) 70kg en Luna ≈ <label><input name="q3" type="radio" value="a"/>11.5</label> <label><input name="q3" type="radio" value="b"/>65</label></p>
+<p>4) Vía Láctea: <label><input name="q4" type="radio" value="a"/>Elíptica</label> <label><input name="q4" type="radio" value="b"/>Espiral barrada</label></p>
+<p>5) Agujero negro se detecta por <label><input name="q5" type="radio" value="a"/>Brillo</label> <label><input name="q5" type="radio" value="b"/>Efectos gravitacionales</label></p>
 <button type="submit">Ver puntaje</button><p id="score"></p></form></section>
-<section class="card">
-  <h2>Animación CSS</h2>
-  <div class="orbit">
-    <div class="moon"></div>
-  </div>
-</section>
+<section class="card"><h2>Animación CSS</h2><div aria-label="Planeta animado" class="planet"></div></section>
 </main>
-<footer><div class="container"><small>Trabajo individual – UNIACC. Sin plantillas.</small></div></footer>
-<script src="js/script.js"></script></body></html>
+<footer role="contentinfo"><div class="container"><small>Trabajo individual – UNIACC. Sin plantillas.</small></div></footer>
+<script src="js/script.js"></script><script defer="True" src="js/a11y.js"></script></body></html>

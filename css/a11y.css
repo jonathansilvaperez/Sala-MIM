@@ -1,0 +1,14 @@
+
+:root { --font-scale: 100%; }
+html { font-size: calc(16px * var(--font-scale) / 100); scroll-behavior: smooth; }
+.a11y-toolbar { position: sticky; top: 0; z-index: 9999; display: flex; gap: .5rem; align-items: center; padding: .5rem .75rem; background: #0f172a; color: #fff; }
+.a11y-toolbar .skip-link { position: absolute; left: -9999px; }
+.a11y-toolbar .skip-link:focus { position: static; background: #000; padding: .25rem .5rem; border-radius: .25rem; }
+.a11y-toolbar button { background: #ffffff22; color: #fff; border: 1px solid #ffffff33; padding: .35rem .6rem; border-radius: .5rem; cursor: pointer; }
+.a11y-toolbar button:hover { background: #ffffff33; }
+.font-controls { display: inline-flex; align-items: center; gap: .5rem; margin-left: .5rem; }
+.hc, .high-contrast { filter: none !important; }
+.high-contrast body, .high-contrast main { background: #fff !important; color: #000 !important; }
+.high-contrast a { text-decoration: underline !important; }
+img { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }

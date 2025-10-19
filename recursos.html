@@ -1,16 +1,27 @@
-<!DOCTYPE html><html lang="es"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Recursos y Medios</title>
-<link rel="stylesheet" href="css/style.css"/></head><body>
-<header><div class="container"><nav><strong>Sala del Universo</strong>
-<div class="links"><a href="index.html">Inicio</a><a href="galaxias.html">Galaxias & Estrellas</a><a href="recursos.html">Recursos</a></div>
+<link href="css/style.css" rel="stylesheet"/><meta content="Videos, actividades con QR y materiales complementarios para profundizar tu visita al MIM." name="description"/><meta content="Recursos y Medios" property="og:title"/><meta content="Videos, actividades con QR y materiales complementarios para profundizar tu visita al MIM." property="og:description"/><meta content="summary_large_image" name="twitter:card"/><link href="css/a11y.css" rel="stylesheet"/></head><body>
+<div aria-label="Accesibilidad" class="a11y-toolbar" id="a11y-toolbar" role="region">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<button aria-pressed="false" id="btn-contrast" type="button">Alto contraste</button>
+<div aria-label="Tamaño de fuente" class="font-controls" role="group">
+<button aria-label="Reducir fuente" id="font-dec" type="button">A-</button>
+<span id="font-val">100%</span>
+<button aria-label="Aumentar fuente" id="font-inc" type="button">A+</button>
+</div>
+</div>
+
+<header><div class="container"><nav aria-label="Navegación principal" role="navigation"><strong>Sala del Universo</strong>
+<div class="links"><a href="index.html">Inicio</a><a href="galaxias.html">Galaxias &amp; Estrellas</a><a href="recursos.html">Recursos</a></div>
 </nav></div></header>
-<main class="container">
+<main class="container" id="contenido" role="main">
 <h1>Recursos multimedia</h1>
 <div class="card">
 <h2>Video</h2>
 <p>Coloca aquí tu video en <code>media/cosmologia.mp4</code> (grabación propia, narración o clip con licencia).</p>
-<video controls width="100%"><source src="media/cosmologia.mp4" type="video/mp4"/>Tu navegador no soporta el video HTML5.</video>
+<video controls="" width="100%"><source src="media/cosmologia.mp4" type="video/mp4"/>Tu navegador no soporta el video HTML5.</video>
 <p style="color:var(--muted);font-size:14px">*Reemplaza el archivo vacío por tu video real.</p>
 </div>
 <div class="card">
@@ -22,5 +33,5 @@
 </ol>
 </div>
 </main>
-<footer><div class="container"><small>Recursos y medios – compatible desktop y smartphone.</small></div></footer>
-<script src="js/script.js"></script></body></html>
+<footer role="contentinfo"><div class="container"><small>Recursos y medios – compatible desktop y smartphone.</small></div></footer>
+<script src="js/script.js"></script><script defer="True" src="js/a11y.js"></script></body></html>
