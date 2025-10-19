@@ -41,17 +41,6 @@ El sitio contiene tres secciones principales:
  ┗ 📄 README.md
 ```
 
----
-
-## 🌍 Publicación en GitHub Pages
-1. Sube todos los archivos del proyecto a la rama `main` del repositorio.  
-2. Ve a **Settings → Pages**.  
-3. En *Branch*, selecciona `main` y en *Folder*, elige `/ (root)`.  
-4. Guarda los cambios y accede desde:  
-   🔗 [https://jonathansilvaperez.github.io/sala-universo-mim/](https://jonathansilvaperez.github.io/sala-universo-mim/)
-
----
-
 ## 📱 Compatibilidad
 El sitio fue optimizado para visualizarse correctamente tanto en **computadores de escritorio** como en **tablets y smartphones**.
 
@@ -59,6 +48,5 @@ El sitio fue optimizado para visualizarse correctamente tanto en **computadores 
 
 ## 👨‍💻 Autor
 **Jonathan Silva Pérez**  
-Técnico en Computación – Estudiante de Ingeniería en Informática Multimedia, UNIACC  
-📍 El Bosque, Santiago – Chile  
+ Estudiante de Ingeniería en Informática Multimedia, UNIACC  
 © 2025 | Proyecto académico sin uso de plantillas.
