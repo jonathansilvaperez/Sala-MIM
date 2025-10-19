@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240"><rect width="400" height="240" fill="#b98eff"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28" fill="#081027">Imagen 3</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" aria-labelledby="title desc" role="img">
+  <title id="title">Nebulosa</title>
+  <desc id="desc">Nube de gas y polvo interestelar con tonos púrpura y azul, estilo plano educativo.</desc>
+
+  <defs>
+    <radialGradient id="nebula" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c2a9ff" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#7f77ff" stop-opacity="0.7"/>
+      <stop offset="80%" stop-color="#4036a5" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="260" cy="260" rx="180" ry="140" fill="url(#nebula)"/>
+  <ellipse cx="250" cy="250" rx="100" ry="80" fill="url(#nebula)" transform="rotate(20 250 250)"/>
+  <ellipse cx="270" cy="260" rx="60" ry="40" fill="url(#nebula)" transform="rotate(-20 270 260)"/>
+
+  <!-- estrellas dentro de la nebulosa -->
+  <g fill="#ffffff">
+    <circle cx="240" cy="250" r="3"/>
+    <circle cx="280" cy="230" r="2"/>
+    <circle cx="300" cy="270" r="2"/>
+    <circle cx="220" cy="280" r="1.8"/>
+    <circle cx="260" cy="310" r="2"/>
+  </g>
+</svg>

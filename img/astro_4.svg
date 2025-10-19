@@ -1,1 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240"><rect width="400" height="240" fill="#8effcc"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="28" fill="#081027">Imagen 4</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" aria-labelledby="title desc" role="img">
+  <title id="title">Supernova</title>
+  <desc id="desc">Explosión estelar brillante con rayos de energía y centro luminoso.</desc>
+
+  <defs>
+    <radialGradient id="explosion" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffacd" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#ff9f43" stop-opacity="0.8"/>
+      <stop offset="80%" stop-color="#ff3333" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="100" fill="url(#explosion)"/>
+
+  <!-- rayos -->
+  <g stroke="#ffd699" stroke-width="3" stroke-linecap="round" opacity="0.9">
+    <line x1="256" y1="140" x2="256" y2="60"/>
+    <line x1="256" y1="372" x2="256" y2="452"/>
+    <line x1="140" y1="256" x2="60" y2="256"/>
+    <line x1="372" y1="256" x2="452" y2="256"/>
+    <line x1="180" y1="180" x2="120" y2="120"/>
+    <line x1="332" y1="332" x2="392" y2="392"/>
+    <line x1="180" y1="332" x2="120" y2="392"/>
+    <line x1="332" y1="180" x2="392" y2="120"/>
+  </g>
+
+  <!-- centro -->
+  <circle cx="256" cy="256" r="10" fill="#fff"/>
+</svg>
