@@ -1,4 +1,72 @@
-const sky=document.getElementById('sky');if(sky){const ctx=sky.getContext('2d');let stars=[];function resize(){const dpr=window.devicePixelRatio||1;const rect=sky.getBoundingClientRect();sky.width=Math.floor(rect.width*dpr);sky.height=Math.floor(420*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}function genStars(n=90){stars=Array.from({length:n},()=>({x:Math.random()*sky.clientWidth,y:Math.random()*420,r:Math.random()*1.8+0.4,b:Math.random()*0.6+0.4}));}function draw(){const w=sky.clientWidth,h=420;ctx.clearRect(0,0,w,h);const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#050814');grad.addColorStop(1,'#0b1020');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);for(const s of stars){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.b})`;ctx.fill();}}sky.addEventListener('click',()=>alert('Estrella seleccionada (demo)'));window.addEventListener('resize',resize);genStars();resize();}
-const g={mercurio:.38,venus:.91,luna:.165,marte:.38,jupiter:2.34,saturno:1.06,urano:.92,neptuno:1.19};
-const calcBtn=document.getElementById('calc');if(calcBtn){calcBtn.addEventListener('click',()=>{const m=parseFloat(document.getElementById('pesoTierra').value||'0');const p=document.getElementById('planeta').value;if(m<=0)return;const res=(m*g[p]).toFixed(1);document.getElementById('resultado').textContent=`Pesarías aproximadamente ${res} kg en ${p}.`;});}
-const qf=document.getElementById('quizForm');if(qf){const answers={q1:'a',q2:'b',q3:'a',q4:'b',q5:'b'};qf.addEventListener('submit',(e)=>{e.preventDefault();let score=0;const fd=new FormData(qf);for(const k in answers){if(fd.get(k)===answers[k])score++;}const pct=Math.round(score/Object.keys(answers).length*100);document.getElementById('score').textContent=`Tu puntaje: ${score}/5 (${pct}%)`;});}
+/* ==========================================================
+   Mapa estelar interactivo – MIM
+   Autor: Jonathan Silva
+   Dependencias: ninguna (Canvas API puro)
+   Estructura esperada en index.html:
+     <section id="sky" class="card">
+       <h2>Mapa estelar</h2>
+       <!-- el canvas se inyecta aquí automáticamente -->
+     </section>
+     ...
+     <div id="toast" aria-live="polite" aria-atomic="true"></div>
+   ========================================================== */
+
+(() => {
+  // ---------- Utilidades UI (toast) ----------
+  function ensureToastHost() {
+    let host = document.getElementById("toast");
+    if (!host) {
+      host = document.createElement("div");
+      host.id = "toast";
+      document.body.appendChild(host);
+    }
+    // estilos mínimos inyectados si el CSS no los tiene
+    const STYLE_ID = "__toast_style__";
+    if (!document.getElementById(STYLE_ID)) {
+      const css = `
+        #toast{position:fixed;right:16px;top:16px;z-index:9999;pointer-events:none;font-size:14px}
+        .toast-msg{background:rgba(20,24,33,.95);color:#fff;border:1px solid rgba(255,255,255,.08);
+          padding:10px 14px;border-radius:10px;margin-bottom:8px;box-shadow:0 10px 25px rgba(0,0,0,.25);
+          opacity:0;transform:translateY(-6px);transition:opacity .25s ease, transform .25s ease}
+        .toast-msg.show{opacity:1;transform:translateY(0)}
+        .toast-msg .title{font-weight:700;margin-right:6px}
+        .toast-msg .meta{opacity:.85}
+        canvas.starfield{display:block;width:100%;height:auto;border-radius:10px;outline:none}
+        .star-cursor{cursor:crosshair}
+      `;
+      const style = document.createElement("style");
+      style.id = STYLE_ID;
+      style.textContent = css;
+      document.head.appendChild(style);
+    }
+    return host;
+  }
+
+  function showStarToast({ title = "Estrella", name = "", mag = "", dist = "", type = "", constellation = "" }) {
+    const host = ensureToastHost();
+    const el = document.createElement("div");
+    el.className = "toast-msg";
+    const parts = [];
+    if (name) parts.push(name);
+    if (mag !== "" && mag != null) parts.push(`mag ${mag}`);
+    if (dist !== "" && dist != null) parts.push(`${dist} a.l.`);
+    if (type) parts.push(type);
+    if (constellation) parts.push(constellation);
+
+    el.innerHTML = `<span class="title">${title}</span> <span class="meta">• ${parts.join(" • ")}</span>`;
+    host.appendChild(el);
+    requestAnimationFrame(() => el.classList.add("show"));
+    setTimeout(() => {
+      el.classList.remove("show");
+      setTimeout(() => el.remove(), 260);
+    }, 3200);
+  }
+
+  // ---------- Dataset principal (algunas estrellas brillantes) ----------
+  // Posiciones normalizadas (0..1) en el canvas; son "demo" pero estables.
+  const FEATURED_STARS = [
+    { name: "Vega",        mag: 0.03,  dist: 25,  type: "A0V",   constellation: "Lira",    x: 0.70, y: 0.28 },
+    { name: "Betelgeuse",  mag: 0.42,  dist: 642, type: "M1-2Ia",constellation: "Orión",   x: 0.35, y: 0.30 },
+    { name: "Rigel",       mag: 0.13,  dist: 860, type: "B8Ia",  constellation: "Orión",   x: 0.42, y: 0.55 },
+    { name: "Antares",     mag: 1.06,  dist: 550, type: "M1.5Iab",constellation:"Escorpio",x: 0.80, y: 0.60 },
+    { name: "
