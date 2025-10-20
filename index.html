@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sala del Universo – Inicio</title>
-<link rel="stylesheet" href="css/style.css"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Sala del Universo – Inicio</title>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <header>
@@ -27,11 +27,12 @@
     <p>Descubre cómo funciona el cosmos a través de experiencias interactivas. Aprende sobre galaxias, estrellas y planetas mientras juegas, experimentas y observas cómo la ciencia cobra vida en el MIM.</p>
   </div>
 
-  <!-- 🔭 Mapa estelar interactivo -->
+  <!-- 🔭 Mapa estelar (con canvas de respaldo) -->
   <section class="card" id="sky">
     <h2>Mapa estelar</h2>
     <p class="muted">Haz clic sobre las estrellas brillantes para ver sus datos.</p>
-    <!-- El canvas se inyecta automáticamente por js/script.js -->
+    <!-- El script usará este canvas si ya existe; si no, inyecta uno -->
+    <canvas id="skyCanvas" class="starfield"></canvas>
   </section>
 
   <!-- ⚖️ Peso en otros planetas -->
@@ -58,7 +59,7 @@
     <p id="resultado"></p>
   </section>
 
-  <!-- 🧠 Mini quiz educativo -->
+  <!-- 🧠 Mini-quiz -->
   <section class="card">
     <h2>Mini-quiz</h2>
     <form id="quizForm">
@@ -70,7 +71,7 @@
         <label><input type="radio" name="q2" value="a">Temperatura</label>
         <label><input type="radio" name="q2" value="b">Masa</label>
       </p>
-      <p>3) 70kg en la Luna ≈
+      <p>3) 70 kg en la Luna ≈
         <label><input type="radio" name="q3" value="a">11.5</label>
         <label><input type="radio" name="q3" value="b">65</label>
       </p>
@@ -101,9 +102,10 @@
   </div>
 </footer>
 
-<!-- Contenedor de notificaciones -->
+<!-- Contenedor de notificaciones (toast) -->
 <div id="toast" aria-live="polite" aria-atomic="true"></div>
 
-<script src="js/script.js"></script>
+<!-- Script principal; 'defer' y versión para evitar caché -->
+<script src="js/script.js?v=4" defer></script>
 </body>
 </html>
