@@ -1,12 +1,9 @@
 // ==========================================================
-// Sala del Universo - Script principal (robusto)
+// Sala del Universo - Script principal (robusto + click fix)
 // Activa: mapa estelar, cálculo de peso y mini-quiz
-// No revienta si faltan nodos; crea los que necesita.
 // ==========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("[Sala del Universo] JS cargado ✅");
-
   // ---------- Toast no bloqueante ----------
   function ensureToastHost() {
     let host = document.getElementById("toast");
@@ -15,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
       host.id = "toast";
       document.body.appendChild(host);
     }
-    // estilos mínimos si no existen
     if (!document.getElementById("__toast_style__")) {
       const style = document.createElement("style");
       style.id = "__toast_style__";
@@ -32,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return host;
   }
-
   function showStarToast({ title = "Estrella", name = "", mag = "", dist = "", type = "", constellation = "" }) {
     const host = ensureToastHost();
     const el = document.createElement("div");
@@ -49,12 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.remove(), 260); }, 3200);
   }
 
-  // ---------- 🔭 Mapa estelar ----------
+  // ---------- 🔭 Mapa estelar (con fix de click en px CSS) ----------
   (function initStarMap() {
     const skySection = document.getElementById("sky");
-    if (!skySection) { console.warn("No se encontró #sky (mapa estelar)"); return; }
+    if (!skySection) return;
 
-    // usa canvas existente o lo crea
+    // Usa el canvas existente (#skyCanvas) o lo crea
     let canvas = document.getElementById("skyCanvas") || skySection.querySelector("canvas");
     if (!canvas) {
       canvas = document.createElement("canvas");
@@ -64,14 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const ctx = canvas.getContext("2d");
 
-    // dataset
+    // Dataset de estrellas
     const FEATURED_STARS = [
       { name: "Vega",        mag: 0.03,  dist: 25,   type: "A0V",    constellation: "Lira",     x: 0.70, y: 0.28 },
       { name: "Betelgeuse",  mag: 0.42,  dist: 642,  type: "M1-2Ia", constellation: "Orión",    x: 0.35, y: 0.30 },
       { name: "Rigel",       mag: 0.13,  dist: 860,  type: "B8Ia",   constellation: "Orión",    x: 0.42, y: 0.55 },
       { name: "Antares",     mag: 1.06,  dist: 550,  type: "M1.5Iab",constellation: "Escorpio", x: 0.80, y: 0.60 },
-      { name: "Sirio",       mag:-1.46,  dist: 8.6,  type: "A1V",    constellation: "Can Mayor",x: 0.20, y: 0.65 },
-      { name: "Canopus",     mag:-0.74,  dist: 310,  type: "A9II",   constellation: "Carina",   x: 0.15, y: 0.80 },
+      { name: "Sirio",       mag: -1.46, dist: 8.6,  type: "A1V",    constellation: "Can Mayor",x: 0.20, y: 0.65 },
+      { name: "Canopus",     mag: -0.74, dist: 310,  type: "A9II",   constellation: "Carina",   x: 0.15, y: 0.80 },
       { name: "Acrux",       mag: 0.76,  dist: 320,  type: "B0.5IV", constellation: "Cruz Sur", x: 0.58, y: 0.80 },
       { name: "Aldebarán",   mag: 0.85,  dist: 65,   type: "K5III",  constellation: "Tauro",    x: 0.52, y: 0.35 }
     ];
@@ -79,8 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + 0.4, a: 0.6 + Math.random() * 0.4
     }));
 
-    function nx(x) { return x * canvas.width / (window.devicePixelRatio || 1); }
-    function ny(y) { return y * canvas.height / (window.devicePixelRatio || 1); }
+    // Conversión a px CSS (no a px de dispositivo: setTransform ya nos normaliza)
+    function nx(x) { return x * (canvas.width / (window.devicePixelRatio || 1)); }
+    function ny(y) { return y * (canvas.height / (window.devicePixelRatio || 1)); }
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
@@ -90,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = w + "px";
       canvas.style.height = h + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // dibujar en coordenadas CSS
       draw();
     }
 
@@ -102,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // estrellas fondo
+      // estrellas de fondo
       ctx.save();
       bgStars.forEach(s => {
         ctx.globalAlpha = s.a;
@@ -113,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       ctx.restore();
 
-      // destacadas
+      // estrellas destacadas
       FEATURED_STARS.forEach(s => {
         const x = nx(s.x), y = ny(s.y);
         const glow = ctx.createRadialGradient(x, y, 0, x, y, 16);
@@ -126,24 +122,34 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Selección con radio ampliado (24 px)
     function pick(px, py) {
-      const R = 16; let star = null, best = Infinity;
+      const R = 24;
+      let star = null, best = Infinity;
       FEATURED_STARS.forEach(s => {
-        const x = nx(s.x), y = ny(s.y);
-        const d = Math.hypot(px - x, py - y);
+        const dx = px - nx(s.x);
+        const dy = py - ny(s.y);
+        const d = Math.hypot(dx, dy);
         if (d < R && d < best) { best = d; star = s; }
       });
       return star;
     }
 
+    // CLICK FIX: usa px CSS (no escalar por width/rect.width)
     canvas.addEventListener("click", e => {
       const rect = canvas.getBoundingClientRect();
-      const px = (e.clientX - rect.left) * (canvas.width / rect.width);
-      const py = (e.clientY - rect.top) * (canvas.height / rect.height);
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+
       const s = pick(px, py);
       if (s) {
         showStarToast({
-          title: "Estrella", name: s.name, mag: s.mag, dist: s.dist, type: s.type, constellation: s.constellation
+          title: "Estrella",
+          name: s.name,
+          mag: s.mag,
+          dist: s.dist,
+          type: s.type,
+          constellation: s.constellation
         });
       }
     });
@@ -158,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const sel = document.getElementById("planeta");
     const btn = document.getElementById("calc");
     const out = document.getElementById("resultado");
-    if (!peso || !sel || !btn || !out) { console.warn("Controles de peso no encontrados."); return; }
+    if (!peso || !sel || !btn || !out) return;
 
     const g = { mercurio:3.7, venus:8.87, luna:1.62, marte:3.71, jupiter:24.79, saturno:10.44, urano:8.87, neptuno:11.15 };
 
@@ -174,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- 🧠 Mini-quiz ----------
   (function initQuiz() {
     const form = document.getElementById("quizForm");
-    if (!form) { console.warn("Formulario de quiz no encontrado."); return; }
+    if (!form) return;
     let scoreEl = form.querySelector("#score");
     if (!scoreEl) { scoreEl = document.createElement("p"); scoreEl.id = "score"; form.appendChild(scoreEl); }
 
