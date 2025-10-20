@@ -1,79 +1,235 @@
-:root{--bg:#0b1020;--fg:#e8f1ff;--muted:#a7b3c7;--brand:#7aa7ff;--accent:#44ffd1;--card:#121735;}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-a{color:var(--accent);text-decoration:none}
-a:hover{opacity:.9}
-a:focus-visible,button:focus-visible,.input:focus-visible,select:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;border-radius:8px
+:root {
+  --bg: #0b1020;
+  --fg: #e8f1ff;
+  --muted: #a7b3c7;
+  --brand: #7aa7ff;
+  --accent: #44ffd1;
+  --card: #121735;
 }
 
-.container{max-width:1100px;margin:auto;padding:20px}
-header{position:sticky;top:0;background:linear-gradient(180deg,rgba(11,16,32,.9),rgba(11,16,32,.6));border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:blur(8px);z-index:10}
-nav{display:flex;gap:12px;align-items:center;justify-content:space-between}
-nav .links a{padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:999px;margin-left:6px}
-nav .links a:hover{background:rgba(255,255,255,.06)}
-
-h1{font-size:clamp(28px,6vw,44px);margin:.4rem 0}
-.grid{display:grid;gap:18px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:18px}
-.card h2{margin-top:0}
-
-footer{border-top:1px solid rgba(255,255,255,.08);padding:24px 0;color:var(--muted)}
-
-.muted{color:var(--muted);font-size:14px} /* ✅ NUEVA: usada en index */
-
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.gallery img{width:100%;height:160px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.12)}
-/* ✅ SVG con fondo transparente: que se contengan y no se corten */
-.gallery img[src$=".svg"]{object-fit:contain;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));padding:8px}
-
-@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-.planet{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff6, #7aa7ff);border:1px solid rgba(255,255,255,.18);animation:floaty 4s ease-in-out infinite;margin-inline:auto;box-shadow:0 6px 24px rgba(0,0,0,.35), inset -12px -18px 28px rgba(0,0,0,.35)}
-
-.flex{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.input,select,button{background:#0e1533;color:var(--fg);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px}
-button{background:var(--brand);color:#081027;font-weight:700;cursor:pointer}
-button:hover{filter:brightness(1.05)}
-
-/* Canvas del cielo */
-canvas{display:block;width:100%;height:420px;background:linear-gradient(180deg,#050814,#0b1020);border-radius:16px;border:1px solid rgba(255,255,255,.1)}
-.starfield{display:block;width:100%;height:auto;border-radius:16px;border:1px solid rgba(255,255,255,.1)} /* opcional si usas la clase */
-
-/* ✅ Toast (si no quieres depender del estilo inyectado por JS) */
-#toast{position:fixed;right:16px;top:16px;z-index:9999;pointer-events:none;font-size:14px}
-.toast-msg{
-  background:rgba(20,24,33,.95);color:#fff;border:1px solid rgba(255,255,255,.08);
-  padding:10px 14px;border-radius:10px;margin-bottom:8px;box-shadow:0 10px 25px rgba(0,0,0,.25);
-  opacity:0;transform:translateY(-6px);transition:opacity .25s ease, transform .25s ease
+/* --- Estilo base --- */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
 }
-.toast-msg.show{opacity:1;transform:translateY(0)}
-.toast-msg .title{font-weight:700;margin-right:6px}
-.toast-msg .meta{opacity:.85}
+a { color: var(--accent); text-decoration: none; }
 
-/* --- Ajustes responsive para móviles --- */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* --- Header y navegación --- */
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(180deg, rgba(11,16,32,.9), rgba(11,16,32,.6));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .links a {
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+  margin-left: 6px;
+}
+
+nav .links a:hover {
+  background: rgba(255,255,255,.06);
+}
+
+/* --- Textos y tarjetas --- */
+h1 {
+  font-size: clamp(28px, 6vw, 44px);
+  margin: .4rem 0;
+}
+
+.grid { display: grid; gap: 18px; }
+
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+footer {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 24px 0;
+  color: var(--muted);
+}
+
+/* --- Galería --- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* --- Animación planeta --- */
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff6, #7aa7ff);
+  border: 1px solid rgba(255,255,255,.18);
+  animation: floaty 4s ease-in-out infinite;
+}
+
+/* --- Formularios y botones --- */
+.flex {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input, select, button {
+  background: #0e1533;
+  color: var(--fg);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+button {
+  background: var(--brand);
+  color: #081027;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --- Canvas del mapa estelar --- */
+canvas {
+  display: block;
+  width: 100%;
+  height: 420px;
+  background: linear-gradient(180deg, #050814, #0b1020);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+/* --- Toast (notificaciones flotantes) --- */
+#toast {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast-msg {
+  background: rgba(20,24,33,.95);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.toast-msg.show { opacity: 1; transform: translateY(0); }
+
+/* ============================
+   📱 Responsive móvil (<= 640px)
+   ============================ */
 @media (max-width: 640px) {
+  /* Safe-area iOS */
+  body { padding-top: env(safe-area-inset-top, 0); }
+  header { padding-top: calc(env(safe-area-inset-top, 0) + 6px); }
+
+  .container { padding: 16px; }
+
   nav {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
   }
 
   nav strong {
     font-size: 18px;
-    margin-bottom: 4px;
+    line-height: 1.1;
   }
 
   nav .links {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: 2px;
+    overflow: visible;
   }
 
   nav .links a {
-    display: inline-block;
     font-size: 15px;
     padding: 6px 10px;
+    margin: 0;
     border-radius: 12px;
-    text-align: center;
+    line-height: 1.1;
   }
+
+  h1 { font-size: clamp(24px, 7vw, 32px); }
+  .card { padding: 14px; }
+
+  /* Canvas más pequeño */
+  canvas, .starfield { height: 300px; }
+
+  /* Inputs a ancho completo */
+  .flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .input, select, button {
+    width: 100%;
+  }
+
+  /* Quiz accesible */
+  #quizForm p { margin-bottom: 12px; }
+  #quizForm label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+
+  /* Galería 2 columnas */
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery img { height: 140px; }
+}
+
+/* --- Otros pequeños ajustes --- */
+.muted {
+  color: var(--muted);
+  font-size: 14px;
 }
